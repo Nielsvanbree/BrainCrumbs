@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Crumbie from './Crumbie';
 
 const navLinks = [
+  { href: '/courses', label: 'Courses' },
   { href: '/curiosity', label: 'Curiosity' },
   { href: '/crypto', label: 'Crypto' },
   { href: '/tech', label: 'Tech' },

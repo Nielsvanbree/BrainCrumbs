@@ -15,6 +15,7 @@ module.exports = {
           purple: "#8B5CF6",
           blue: "#3B82F6",
           cyan: "#06B6D4",
+          green: "#22c55e",
           card: "#0f0c29",
         }
       },
