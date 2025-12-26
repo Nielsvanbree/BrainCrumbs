@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import ProgressBar from '@/components/ui/ProgressBar';
-import { getCourse, Course, Lesson, QuizQuestion } from '@/lib/course-data';
+import { getCourse, Course, Lesson } from '@/lib/course-data';
 import { useCourseProgress } from '@/hooks/useCourseProgress';
 import { 
   PlayCircle, 
@@ -31,7 +31,6 @@ export default function CoursePage({ params }: { params: { courseSlug: string } 
   
   if (!course) {
     notFound();
-    return null;
   }
 
   return (

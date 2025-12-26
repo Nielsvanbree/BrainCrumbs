@@ -5,7 +5,6 @@ import SectionHeader from '@/components/SectionHeader';
 import { quickCrumbs, reviews, Category } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import { BookOpen, Mic } from 'lucide-react';
-import Link from 'next/link';
 
 export function generateStaticParams() {
   return [
