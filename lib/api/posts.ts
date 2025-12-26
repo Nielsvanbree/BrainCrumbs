@@ -1,136 +1,93 @@
-import { Post } from './types';
-import { apiClient } from './client';
+import { Post } from '@/lib/api/types';
+import { AdminPost } from '@/lib/posts-db';
 
 /**
  * Posts API Service
- * This service will interface with your backend API for blog posts (crumbs)
- * Currently uses mock data, but structured to easily swap to real API calls
+ * Interfaces with the internal Next.js API routes
  */
 
 export const postsApi = {
   /**
    * Fetch all posts
-   * @returns Promise<Post[]>
    */
   async getAllPosts(): Promise<Post[]> {
-    // TODO: Replace with actual API call
-    // return apiClient.get<Post[]>('/posts');
-    
-    const { quickCrumbs, latestDeepCrumb } = await import('../data');
-    return Promise.resolve([latestDeepCrumb, ...quickCrumbs]);
+    const response = await fetch('/api/posts?status=published');
+    if (!response.ok) throw new Error('Failed to fetch posts');
+    return response.json();
   },
 
   /**
    * Fetch a single post by slug
-   * @param slug - Post slug identifier
-   * @returns Promise<Post | null>
    */
   async getPostBySlug(slug: string): Promise<Post | null> {
-    // TODO: Replace with actual API call
-    // return apiClient.get<Post>(`/posts/${slug}`);
-    
-    const { quickCrumbs, latestDeepCrumb } = await import('../data');
-    const allPosts = [latestDeepCrumb, ...quickCrumbs];
-    const post = allPosts.find(p => p.slug === slug);
-    return Promise.resolve(post || null);
+    const response = await fetch(`/api/posts/${slug}`);
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error('Failed to fetch post');
+    return response.json();
   },
 
   /**
    * Fetch posts by category
-   * @param category - Post category
-   * @returns Promise<Post[]>
    */
   async getPostsByCategory(category: string): Promise<Post[]> {
-    // TODO: Replace with actual API call
-    // return apiClient.get<Post[]>(`/posts?category=${category}`);
-    
-    const { quickCrumbs, latestDeepCrumb } = await import('../data');
-    const allPosts = [latestDeepCrumb, ...quickCrumbs];
-    const filtered = allPosts.filter(p => p.category === category);
-    return Promise.resolve(filtered);
+    const response = await fetch(`/api/posts?status=published&category=${category}`);
+    if (!response.ok) throw new Error('Failed to fetch posts');
+    return response.json();
   },
 
   /**
    * Fetch only deep crumbs (long-form posts)
-   * @returns Promise<Post[]>
    */
   async getDeepCrumbs(): Promise<Post[]> {
-    // TODO: Replace with actual API call
-    // return apiClient.get<Post[]>('/posts?type=deep');
-    
-    const { quickCrumbs, latestDeepCrumb } = await import('../data');
-    const allPosts = [latestDeepCrumb, ...quickCrumbs];
-    const deepCrumbs = allPosts.filter(p => p.isDeepCrumb);
-    return Promise.resolve(deepCrumbs);
+    const posts = await this.getAllPosts();
+    return posts.filter(p => p.isDeepCrumb);
   },
 
   /**
    * Fetch only quick crumbs (short-form posts)
-   * @returns Promise<Post[]>
    */
   async getQuickCrumbs(): Promise<Post[]> {
-    // TODO: Replace with actual API call
-    // return apiClient.get<Post[]>('/posts?type=quick');
-    
-    const { quickCrumbs } = await import('../data');
-    return Promise.resolve(quickCrumbs);
+    const posts = await this.getAllPosts();
+    return posts.filter(p => !p.isDeepCrumb);
   },
 
   /**
    * Fetch the latest deep crumb
-   * @returns Promise<Post | null>
    */
   async getLatestDeepCrumb(): Promise<Post | null> {
-    // TODO: Replace with actual API call
-    // return apiClient.get<Post>('/posts/latest-deep');
-    
-    const { latestDeepCrumb } = await import('../data');
-    return Promise.resolve(latestDeepCrumb);
+    const posts = await this.getDeepCrumbs();
+    return posts.length > 0 ? posts[0] : null;
   },
 
   /**
    * Search posts by query
-   * @param query - Search query string
-   * @returns Promise<Post[]>
    */
   async searchPosts(query: string): Promise<Post[]> {
-    // TODO: Replace with actual API call
-    // return apiClient.get<Post[]>(`/posts/search?q=${query}`);
-    
-    const { quickCrumbs, latestDeepCrumb } = await import('../data');
-    const allPosts = [latestDeepCrumb, ...quickCrumbs];
+    const posts = await this.getAllPosts();
     const lowerQuery = query.toLowerCase();
-    const filtered = allPosts.filter(p => 
+    return posts.filter(p => 
       p.title.toLowerCase().includes(lowerQuery) ||
       p.excerpt.toLowerCase().includes(lowerQuery)
     );
-    return Promise.resolve(filtered);
   },
 
   /**
    * Fetch paginated posts
-   * @param page - Page number (1-indexed)
-   * @param pageSize - Number of posts per page
-   * @returns Promise<PaginatedResponse<Post>>
    */
   async getPaginatedPosts(page: number = 1, pageSize: number = 10) {
-    // TODO: Replace with actual API call
-    // return apiClient.get<PaginatedResponse<Post>>(`/posts?page=${page}&pageSize=${pageSize}`);
-    
-    const { quickCrumbs, latestDeepCrumb } = await import('../data');
-    const allPosts = [latestDeepCrumb, ...quickCrumbs];
+    const posts = await this.getAllPosts();
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    const paginatedData = allPosts.slice(startIndex, endIndex);
+    const paginatedData = posts.slice(startIndex, endIndex);
     
-    return Promise.resolve({
+    return {
       data: paginatedData,
       pagination: {
         page,
         pageSize,
-        total: allPosts.length,
-        totalPages: Math.ceil(allPosts.length / pageSize),
+        total: posts.length,
+        totalPages: Math.ceil(posts.length / pageSize),
       },
-    });
+    };
   },
 };

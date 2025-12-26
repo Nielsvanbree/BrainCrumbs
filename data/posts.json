@@ -1,0 +1,41 @@
+[
+  {
+    "id": "1",
+    "title": "The Future of Decentralized Identity",
+    "slug": "decentralized-identity-future-woa",
+    "excerpt": "Why your digital soul belongs to you, and how blockchain is making it happen.",
+    "category": "crypto",
+    "readTime": "12 min",
+    "isDeepCrumb": true,
+    "status": "published",
+    "publishedAt": "2023-10-12T12:00:00Z",
+    "date": "Oct 12, 2023",
+    "content": "Why your digital soul belongs to you, and how blockchain is making it happen.\n\n> \"This is where the magic happens. A quote or key takeaway that captures the essence of the article.\"\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\n![Flying cow](https://thumbs.dreamstime.com/b/flying-cow-4104683.jpg)\n\n## The Core Concept\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n* Point one about the future.\n* Point two about technology.\n* Point three about human nature.\n\n## Why It Matters\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+  },
+  {
+    "id": "3",
+    "title": "The Philosophy of Antifragility",
+    "slug": "antifragility-philosophy",
+    "excerpt": "Chaos is not just to be survived, but used.",
+    "category": "curiosity",
+    "readTime": "4 min",
+    "isDeepCrumb": false,
+    "status": "published",
+    "publishedAt": "2023-10-08T09:15:00Z",
+    "date": "Oct 08, 2023",
+    "content": "Antifragility is a property of systems that increase in capability to thrive as a result of stressors, shocks, volatility, noise, mistakes, faults, attacks, or failures.\n\n> \"Wind extinguishes a candle and energizes fire.\" - Nassim Nicholas Taleb\n\n### Key Concepts\n\n- **Fragile**: Breaks under stress.\n- **Robust**: Resists stress.\n- **Antifragile**: Gets better with stress.\n\nApplying this to your life means seeking out challenges that don't kill you, but make you stronger."
+  },
+  {
+    "id": "4",
+    "title": "Bitcoin Halving Explained",
+    "slug": "bitcoin-halving",
+    "excerpt": "What happens when the block reward cuts in half?",
+    "category": "crypto",
+    "readTime": "3 min",
+    "isDeepCrumb": false,
+    "status": "published",
+    "publishedAt": "2023-10-05T11:00:00Z",
+    "date": "Oct 05, 2023",
+    "content": "Every 210,000 blocks, or roughly every four years, the block reward given to Bitcoin miners for processing transactions is cut in half. This event is referred to as halving.\n\n## Historical Impact\n\nHistorically, halvings have been associated with significant price increases in the months following the event due to the reduced supply issuance.\n\n![Bitcoin Chart](https://images.unsplash.com/photo-1518546305927-5a555bb7020d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80)\n\n*Note: Past performance is not indicative of future results.*"
+  }
+]

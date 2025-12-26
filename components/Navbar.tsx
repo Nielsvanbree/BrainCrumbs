@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LayoutDashboard } from 'lucide-react';
 import { useState } from 'react';
 import Crumbie from './Crumbie';
 
@@ -31,7 +31,7 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-center space-x-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -46,7 +46,23 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <Link href="/subscribe" className="bg-bc-purple hover:bg-bc-blue text-white px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300">
+              
+              <div className="h-4 w-px bg-white/10 mx-2" />
+              
+              <Link 
+                href="/admin" 
+                className={cn(
+                  "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300",
+                  pathname.startsWith('/admin')
+                    ? "text-bc-purple bg-white/5"
+                    : "text-gray-400 hover:text-bc-purple hover:bg-white/5"
+                )}
+              >
+                <LayoutDashboard size={16} />
+                Admin
+              </Link>
+
+              <Link href="/subscribe" className="bg-bc-purple hover:bg-bc-blue text-white px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 shadow-lg shadow-bc-purple/20">
                 Subscribe
               </Link>
             </div>
@@ -74,6 +90,14 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+             <Link
+                href="/admin"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-bc-purple hover:text-white hover:bg-white/10"
+              >
+                <LayoutDashboard size={18} />
+                Admin Panel
+              </Link>
              <Link
                 href="/subscribe"
                 onClick={() => setIsOpen(false)}

@@ -4,18 +4,37 @@ import DeepCrumbHero from '@/components/DeepCrumbHero';
 import CrumbCard from '@/components/CrumbCard';
 import SectionHeader from '@/components/SectionHeader';
 import NewsletterForm from '@/components/NewsletterForm';
-import { latestDeepCrumb, quickCrumbs } from '@/lib/data';
+import { postsDb } from '@/lib/posts-db';
 import Link from 'next/link';
 import { Brain, Cpu, Coins } from 'lucide-react';
 
-export default function Home() {
+// Force dynamic rendering to ensure fresh data on every request
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  // Fetch all posts directly from the DB
+  const allPosts = await postsDb.getAll();
+  
+  // Filter for published posts
+  const publishedPosts = allPosts.filter(p => p.status === 'published');
+
+  // Sort by date (descending)
+  publishedPosts.sort((a, b) => {
+    const dateA = new Date(a.publishedAt || a.date).getTime();
+    const dateB = new Date(b.publishedAt || b.date).getTime();
+    return dateB - dateA;
+  });
+
+  const latestDeepCrumb = publishedPosts.find(p => p.isDeepCrumb) || publishedPosts[0];
+  const quickCrumbs = publishedPosts.filter(p => !p.isDeepCrumb).slice(0, 3);
+
   return (
     <main className="min-h-screen flex flex-col">
       <Navbar />
       
       <div className="flex-grow pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         {/* Hero Section */}
-        <DeepCrumbHero post={latestDeepCrumb} />
+        {latestDeepCrumb && <DeepCrumbHero post={latestDeepCrumb} />}
 
         {/* Quick Crumbs */}
         <section className="py-12">
@@ -24,6 +43,9 @@ export default function Home() {
             {quickCrumbs.map((crumb) => (
               <CrumbCard key={crumb.id} post={crumb} />
             ))}
+            {quickCrumbs.length === 0 && (
+              <p className="text-gray-400 col-span-3 text-center py-8">No quick crumbs available yet.</p>
+            )}
           </div>
         </section>
 
