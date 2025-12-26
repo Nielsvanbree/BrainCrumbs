@@ -1,25 +1,20 @@
-export type Category = 'curiosity' | 'crypto' | 'tech';
+/**
+ * Posts & Reviews Data - Mock Data Source
+ * 
+ * This file serves as a mock data source while you don't have a backend API.
+ * When you're ready to connect to a real API:
+ * 1. The types are already defined in lib/api/types.ts
+ * 2. The API client is set up in lib/api/client.ts
+ * 3. The service layer is ready in lib/api/posts.ts and lib/api/reviews.ts
+ * 4. Simply update FEATURES.USE_MOCK_DATA in lib/config.ts to false
+ * 5. Configure your API_CONFIG.BASE_URL in lib/config.ts
+ * 
+ * No other code changes needed - the components already use the abstracted API layer!
+ */
 
-export interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  category: Category;
-  date: string;
-  readTime: string;
-  isDeepCrumb?: boolean;
-}
+import { Post, ReviewItem, Category } from './api/types';
 
-export interface ReviewItem {
-  id: string;
-  title: string;
-  author: string;
-  type: 'book' | 'podcast' | 'course' | 'article';
-  rating: number;
-  category: Category;
-  tags: string[];
-}
+export type { Post, ReviewItem, Category };
 
 export const latestDeepCrumb: Post = {
   id: '1',

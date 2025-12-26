@@ -1,42 +1,20 @@
-export type LessonType = 'video' | 'text' | 'quiz';
+/**
+ * Course Data - Mock Data Source
+ * 
+ * This file serves as a mock data source while you don't have a backend API.
+ * When you're ready to connect to a real API:
+ * 1. The types are already defined in lib/api/types.ts
+ * 2. The API client is set up in lib/api/client.ts
+ * 3. The service layer is ready in lib/api/courses.ts
+ * 4. Simply update FEATURES.USE_MOCK_DATA in lib/config.ts to false
+ * 5. Configure your API_CONFIG.BASE_URL in lib/config.ts
+ * 
+ * No other code changes needed - the components already use the abstracted API layer!
+ */
 
-export interface QuizQuestion {
-  id: string;
-  question: string;
-  options: string[];
-  correctAnswerIndex: number;
-  explanation: string;
-}
+import { Course, Lesson, Module, QuizQuestion, LessonType } from './api/types';
 
-export interface Lesson {
-  id: string;
-  title: string;
-  type: LessonType;
-  duration: string;
-  content?: string;
-  videoUrl?: string;
-  imageUrl?: string;
-  questions?: QuizQuestion[];
-}
-
-export interface Module {
-  id: string;
-  title: string;
-  description: string;
-  lessons: Lesson[];
-}
-
-export interface Course {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  longDescription: string;
-  thumbnail: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  totalDuration: string;
-  modules: Module[];
-}
+export type { Course, Lesson, Module, QuizQuestion, LessonType };
 
 export const courses: Course[] = [
   {
@@ -59,7 +37,7 @@ export const courses: Course[] = [
             title: 'Barter to Bitcoin',
             type: 'video',
             duration: '15 min',
-            videoUrl: 'https://www.youtube.com/embed/Gc2en3nHxA4' // Valid video ID for history of money
+            videoUrl: 'https://www.youtube.com/embed/Gc2en3nHxA4'
           },
           {
             id: 'l1-2',
@@ -125,7 +103,7 @@ export const courses: Course[] = [
             title: 'Proof of Work vs Proof of Stake',
             type: 'video',
             duration: '20 min',
-            videoUrl: 'https://www.youtube.com/embed/M3EFi_POhps' 
+            videoUrl: 'https://www.youtube.com/embed/M3EFi_POhps'
           },
           {
             id: 'l2-2',
