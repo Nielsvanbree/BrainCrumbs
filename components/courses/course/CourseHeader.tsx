@@ -13,11 +13,11 @@ export default function CourseHeader({ course, totalLessons }: CourseHeaderProps
       {/* Back Button */}
       <div className="mb-8">
         <Link 
-          href="/courses" 
+          href="/academy" 
           className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
         >
           <ArrowLeft size={16} />
-          Back to All Courses
+          Back to Academy
         </Link>
       </div>
 

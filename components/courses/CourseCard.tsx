@@ -20,7 +20,7 @@ export default function CourseCard({ course }: CourseCardProps) {
 
   return (
     <Link 
-      href={`/courses/${course.slug}`}
+      href={`/academy/${course.slug}`}
       className="group flex flex-col bg-bc-card border border-white/10 rounded-2xl overflow-hidden hover:border-bc-purple/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
     >
       <div className="h-48 relative overflow-hidden">

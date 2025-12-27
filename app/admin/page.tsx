@@ -11,10 +11,13 @@ import {
   CheckCircle, 
   FileText,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Settings
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Post } from '@/lib/api/types';
+import { useFeatureFlags } from '@/lib/feature-flags';
+import { Switch } from '@/components/ui/Switch';
 
 // Extension of Post type to include admin-specific fields handled by the API
 interface AdminPost extends Post {
@@ -26,6 +29,7 @@ export default function AdminDashboard() {
   const [posts, setPosts] = useState<AdminPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { flags, toggleFlag } = useFeatureFlags();
 
   useEffect(() => {
     fetchPosts();
@@ -87,6 +91,28 @@ export default function AdminDashboard() {
 
   return (
     <div>
+      {/* Feature Flags Section */}
+      <div className="mb-10 bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm">
+        <div className="flex items-center gap-3 mb-4">
+          <Settings className="text-bc-cyan" size={24} />
+          <h2 className="text-xl font-bold text-white">System Settings</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex items-center justify-between p-4 rounded-lg bg-black/20 border border-white/5">
+            <div>
+              <h3 className="font-medium text-white">Academy Section</h3>
+              <p className="text-sm text-gray-400">Enable public access to courses and learning paths.</p>
+            </div>
+            <Switch 
+              checked={flags.showAcademy}
+              onCheckedChange={() => toggleFlag('showAcademy')}
+              label=""
+              id="academy-toggle"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-[var(--font-orbitron)] font-bold text-white mb-2">

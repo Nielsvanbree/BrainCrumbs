@@ -30,12 +30,12 @@ export const latestDeepCrumb: Post = {
 export const quickCrumbs: Post[] = [
   {
     id: '2',
-    title: "Rust vs Go in 2024",
-    slug: "rust-vs-go-2024",
-    excerpt: "A quick look at performance benchmarks.",
-    category: "tech",
+    title: "Agents are the New Apps",
+    slug: "ai-agents-new-apps",
+    excerpt: "Why conversational interfaces are replacing traditional GUIs.",
+    category: "ai",
     date: "Oct 10, 2023",
-    readTime: "3 min",
+    readTime: "4 min",
   },
   {
     id: '3',
@@ -69,12 +69,12 @@ export const reviews: ReviewItem[] = [
   },
   {
     id: 'r2',
-    title: "Mastering Ethereum",
-    author: "Andreas M. Antonopoulos",
+    title: "Superintelligence",
+    author: "Nick Bostrom",
     type: "book",
-    rating: 4.8,
-    category: "crypto",
-    tags: ["technical", "smart contracts"],
+    rating: 4.6,
+    category: "ai",
+    tags: ["safety", "philosophy"],
   },
   {
     id: 'r3',
@@ -82,7 +82,7 @@ export const reviews: ReviewItem[] = [
     author: "Lex Fridman",
     type: "podcast",
     rating: 4.5,
-    category: "tech",
+    category: "ai",
     tags: ["ai", "discussion"],
   }
 ];

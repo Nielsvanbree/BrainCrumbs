@@ -16,13 +16,13 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/curiosity" className="text-gray-400 hover:text-white transition">Curiosity</Link></li>
               <li><Link href="/crypto" className="text-gray-400 hover:text-white transition">Crypto</Link></li>
-              <li><Link href="/tech" className="text-gray-400 hover:text-white transition">Tech</Link></li>
+              <li><Link href="/ai" className="text-gray-400 hover:text-white transition">AI</Link></li>
             </ul>
           </div>
           <div>
              <h4 className="text-sm font-semibold text-bc-purple uppercase tracking-wider mb-4">Future</h4>
              <ul className="space-y-2">
-               <li><Link href="/courses" className="text-gray-400 hover:text-white transition">Future Courses</Link></li>
+               <li><Link href="/academy" className="text-gray-400 hover:text-white transition">Academy</Link></li>
                <li><Link href="/subscribe" className="text-gray-400 hover:text-white transition">Newsletter</Link></li>
              </ul>
           </div>

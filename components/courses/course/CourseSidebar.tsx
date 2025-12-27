@@ -37,7 +37,7 @@ export default function CourseSidebar({
       <div className="h-full flex flex-col">
         <div className="p-6 border-b border-white/10 flex items-center justify-between">
           <button 
-            onClick={() => router.push(`/courses/${course.slug}`)}
+            onClick={() => router.push(`/academy/${course.slug}`)}
             className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium"
           >
             <ArrowLeft size={16} /> Course Overview

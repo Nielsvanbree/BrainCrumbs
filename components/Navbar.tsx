@@ -6,20 +6,22 @@ import { Menu, X, LayoutDashboard, User, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import Crumbie from './Crumbie';
 import { useAuth } from '@/lib/auth-context';
-
-const navLinks = [
-  { href: '/courses', label: 'Courses' },
-  { href: '/curiosity', label: 'Curiosity' },
-  { href: '/crypto', label: 'Crypto' },
-  { href: '/tech', label: 'Tech' },
-  { href: '/reviews', label: 'Reviews' },
-];
+import { useFeatureFlags } from '@/lib/feature-flags';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const { flags } = useFeatureFlags();
   const [profileOpen, setProfileOpen] = useState(false);
+
+  const navLinks = [
+    ...(flags.showAcademy ? [{ href: '/academy', label: 'Academy' }] : []),
+    { href: '/curiosity', label: 'Curiosity' },
+    { href: '/crypto', label: 'Crypto' },
+    { href: '/ai', label: 'AI' },
+    { href: '/reviews', label: 'Reviews' },
+  ];
 
   return (
     <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-bc-dark/80 backdrop-blur-md">
