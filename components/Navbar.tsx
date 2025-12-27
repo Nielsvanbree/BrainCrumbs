@@ -2,9 +2,10 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Menu, X, LayoutDashboard } from 'lucide-react';
+import { Menu, X, LayoutDashboard, User, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import Crumbie from './Crumbie';
+import { useAuth } from '@/lib/auth-context';
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },
@@ -17,6 +18,8 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+  const [profileOpen, setProfileOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-bc-dark/80 backdrop-blur-md">
@@ -49,18 +52,53 @@ export default function Navbar() {
               
               <div className="h-4 w-px bg-white/10 mx-2" />
               
-              <Link 
-                href="/admin" 
-                className={cn(
-                  "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300",
-                  pathname.startsWith('/admin')
-                    ? "text-bc-purple bg-white/5"
-                    : "text-gray-400 hover:text-bc-purple hover:bg-white/5"
-                )}
-              >
-                <LayoutDashboard size={16} />
-                Admin
-              </Link>
+              {user?.isAdmin && (
+                <Link 
+                  href="/admin" 
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300",
+                    pathname.startsWith('/admin')
+                      ? "text-bc-purple bg-white/5"
+                      : "text-gray-400 hover:text-bc-purple hover:bg-white/5"
+                  )}
+                >
+                  <LayoutDashboard size={16} />
+                  Admin
+                </Link>
+              )}
+
+              {user ? (
+                <div className="relative">
+                  <button 
+                    onClick={() => setProfileOpen(!profileOpen)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                  >
+                    <User size={16} />
+                    {user.name}
+                  </button>
+                  {profileOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-bc-dark border border-white/10 rounded-md shadow-lg py-1">
+                      <button
+                        onClick={() => {
+                          logout();
+                          setProfileOpen(false);
+                        }}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white text-left"
+                      >
+                        <LogOut size={14} className="mr-2" />
+                        Sign out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link 
+                  href="/login" 
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  Log in
+                </Link>
+              )}
 
               <Link href="/subscribe" className="bg-bc-purple hover:bg-bc-blue text-white px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 shadow-lg shadow-bc-purple/20">
                 Subscribe
@@ -90,14 +128,36 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-             <Link
-                href="/admin"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-bc-purple hover:text-white hover:bg-white/10"
-              >
-                <LayoutDashboard size={18} />
-                Admin Panel
-              </Link>
+             {user?.isAdmin && (
+               <Link
+                  href="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-bc-purple hover:text-white hover:bg-white/10"
+                >
+                  <LayoutDashboard size={18} />
+                  Admin Panel
+                </Link>
+             )}
+             {user ? (
+               <button
+                  onClick={() => {
+                    logout();
+                    setIsOpen(false);
+                  }}
+                  className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10 text-left"
+                >
+                  <LogOut size={18} />
+                  Sign out
+                </button>
+             ) : (
+               <Link
+                  href="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-white/10"
+                >
+                  Log in
+                </Link>
+             )}
              <Link
                 href="/subscribe"
                 onClick={() => setIsOpen(false)}

@@ -1,7 +1,37 @@
+"use client";
+
 import Link from 'next/link';
-import { ArrowLeft, LayoutDashboard, FileText, Settings } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, FileText, Settings, Loader2 } from 'lucide-react';
+import { useAuth } from '@/lib/auth-context';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        router.push('/login');
+      } else if (!user.isAdmin) {
+        router.push('/');
+      }
+    }
+  }, [user, loading, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bc-dark flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-bc-purple animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user || !user.isAdmin) {
+    return null; 
+  }
+
   return (
     <div className="min-h-screen bg-bc-dark text-gray-100 font-sans">
       {/* Admin Navigation */}
